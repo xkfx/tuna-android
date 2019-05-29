@@ -2,12 +2,24 @@ package com.example.tuna.hui.model;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * 单词书类
+ */
 public class Target {
 
+    /**
+     * 单词书id
+     */
     private Long id;
 
+    /**
+     * 单词书名称
+     */
     private String name;
 
+    /**
+     * 单词书备注
+     */
     private String comment;
 
     public Long getId() {

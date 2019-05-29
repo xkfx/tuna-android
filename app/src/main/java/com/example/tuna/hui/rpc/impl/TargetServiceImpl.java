@@ -17,8 +17,9 @@ public class TargetServiceImpl implements TargetService {
 
     @Override
     public List<Target> listAll() throws IOException {
-        Response response = MyHttpUtil.doGet(URL_PREFIX);
-        final String json = Objects.requireNonNull(response.body()).string();
-        return MyHttpUtil.GSON.fromJson(json, new TypeToken<List<Target>>() {}.getType());
+        try (Response response = MyHttpUtil.doGet(URL_PREFIX)) {
+            final String json = Objects.requireNonNull(response.body()).string();
+            return MyHttpUtil.GSON.fromJson(json, new TypeToken<List<Target>>() {}.getType());
+        }
     }
 }
