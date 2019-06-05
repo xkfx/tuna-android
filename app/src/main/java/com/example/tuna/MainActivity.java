@@ -1,35 +1,51 @@
 package com.example.tuna;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import com.example.tuna.hui.model.Target;
+import com.example.tuna.hui.util.MyHttpUtil;
+import com.google.gson.reflect.TypeToken;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
+    /**
+     * 用于标识日志消息的来源。
+     */
+    private static final String TAG = "MainActivity";
+
+    /**
+     * 单词书列表
+     */
+    List<Target> mTargets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+        setContentView(R.layout.listview_targets);
 
-    public void doGet(View view) {
-        OkHttpClient okHttpClient = new OkHttpClient();
+        ListView listView = findViewById(R.id.listViewTargetsMain);
 
         Request.Builder builder = new Request.Builder();
-        Request request = builder.get().url("http://120.78.82.66:8090/api/v1/cards?targetId=1000&offset=0&limit=5").build();
+        Request request = builder.get().url("http://120.78.82.66:8090/api/v1/targets").build();
 
-        Call call = okHttpClient.newCall(request);
+        Call call = MyHttpUtil.OK_HTTP_CLIENT.newCall(request);
 
         call.enqueue(new Callback() {
             @Override
@@ -40,14 +56,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
-                final String result = response.body().string();
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                final String json = Objects.requireNonNull(response.body()).string();
+                mTargets = MyHttpUtil.GSON.fromJson(json, new TypeToken<List<Target>>() {}.getType());
+                if (mTargets != null) {
+                    ArrayList<HashMap<String, Object>> hashMaps = new ArrayList<>();
+                    for (int i = 0; i < mTargets.size(); i++) {
+                        HashMap<String,Object> hashMap = new HashMap<>();
+                        hashMap.put("targetName", mTargets.get(i).getName());
+                        hashMaps.add(hashMap);
                     }
-                });
+
+                    String[] from = {"targetName"};
+                    int[] to = {R.id.listViewTargetItemName};
+
+                    runOnUiThread(() -> {
+                        SimpleAdapter adapter = new SimpleAdapter(MainActivity.this,
+                                hashMaps, R.layout.listview_target_item, from,to);
+                        listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+                            Toast.makeText(getApplicationContext(), mTargets.get(i).getId().toString(), Toast.LENGTH_LONG).show();
+
+                            // 打开相应单词列表
+
+                        });
+                    });
+                }
             }
         });
     }
