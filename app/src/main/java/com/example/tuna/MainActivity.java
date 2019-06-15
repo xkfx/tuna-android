@@ -1,12 +1,13 @@
 package com.example.tuna;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.example.tuna.lin.activity.CardListActivity;
 import com.example.tuna.hui.model.Target;
 import com.example.tuna.hui.util.MyHttpUtil;
 import com.google.gson.reflect.TypeToken;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 单词书列表
      */
-    List<Target> mTargets;
+    private List<Target> mTargets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,13 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), mTargets.get(i).getId().toString(), Toast.LENGTH_LONG).show();
 
                             // 打开相应单词列表
+                            Intent intent = new Intent(MainActivity.this, CardListActivity.class);
 
+                            Bundle bundle = new Bundle();
+                            bundle.putLong("targetId", mTargets.get(i).getId());
+                            intent.putExtras(bundle);
+
+                            startActivity(intent);
                         });
                     });
                 }
