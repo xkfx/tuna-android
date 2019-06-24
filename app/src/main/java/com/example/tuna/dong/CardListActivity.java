@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
-import com.example.tuna.MainActivity;
 import com.example.tuna.R;
 import com.example.tuna.hui.model.Card;
 import com.example.tuna.hui.model.CardListVO;
 import com.example.tuna.hui.util.MyHttpUtil;
+import com.example.tuna.lin.WordActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -134,6 +134,15 @@ public class CardListActivity extends AppCompatActivity {
                         SimpleAdapter adapter = new SimpleAdapter(CardListActivity.this,
                                 hashMaps, R.layout.listview_cards_item, from,to);
                         mListView.setAdapter(adapter);
+                        //ListView点击监听
+                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                            public void onItemClick(AdapterView parent, View view, int position, long id){
+                                //获取单词通过Intent传入下一个Activity
+                                Intent intent = new Intent(CardListActivity.this,WordActivity.class);
+                                intent.putExtra("word",mCards.get(position).getFront());
+                                startActivity(intent);
+                            }
+                        });
                     });
                 }
 
