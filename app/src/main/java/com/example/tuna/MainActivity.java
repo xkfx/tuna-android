@@ -7,7 +7,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.example.tuna.lin.activity.CardListActivity;
+import com.example.tuna.dong.CardListActivity;
 import com.example.tuna.hui.model.Target;
 import com.example.tuna.hui.util.MyHttpUtil;
 import com.google.gson.reflect.TypeToken;
