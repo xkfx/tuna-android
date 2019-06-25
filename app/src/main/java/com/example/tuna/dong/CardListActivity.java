@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.example.tuna.R;
 import com.example.tuna.hui.model.Card;
@@ -54,6 +55,10 @@ public class CardListActivity extends AppCompatActivity {
     private long mTargetId;
 
     /**
+     * 单词本名
+     */
+    private String mTargetName;
+    /**
      * 当前listview
      */
     private ListView mListView ;
@@ -63,6 +68,11 @@ public class CardListActivity extends AppCompatActivity {
     private Button mPreBtn;
     private Button mNextBtn;
 
+    /**
+     * 单词本标题
+     */
+    private TextView mListTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,15 +80,18 @@ public class CardListActivity extends AppCompatActivity {
         mListView = findViewById(R.id.list_card);
         Bundle bundle = this.getIntent().getExtras();
         long targetId = 1000L;
+        String targetName = null;
         if (bundle != null) {
             targetId = bundle.getLong("targetId");
+            targetName = bundle.getString("targetName");
             Log.d(TAG, Long.toString(targetId));
         }
         mTargetId = targetId;
-
+        mTargetName = targetName;
         mPreBtn = findViewById(R.id.previousBtn);
         mNextBtn = findViewById(R.id.nextBtn);
-
+        mListTitle = findViewById(R.id.Title);
+        mListTitle.setText(mTargetName);
         ShowCards(0);
 
     }
@@ -141,6 +154,8 @@ public class CardListActivity extends AppCompatActivity {
                                 Intent intent = new Intent(CardListActivity.this,WordActivity.class);
                                 intent.putExtra("word",mCards.get(position).getFront());
                                 startActivity(intent);
+                                //从左往右的跳转动画
+                                overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
                             }
                         });
                     });

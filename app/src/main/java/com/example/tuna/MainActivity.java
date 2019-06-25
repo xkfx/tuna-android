@@ -1,5 +1,6 @@
 package com.example.tuna;
 
+import com.example.tuna.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -83,9 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
                             Bundle bundle = new Bundle();
                             bundle.putLong("targetId", mTargets.get(i).getId());
+                            bundle.putCharSequence("targetName",mTargets.get(i).getName());
                             intent.putExtras(bundle);
 
                             startActivity(intent);
+                            //从左往右的跳转动画
+                            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
                         });
                     });
                 }
