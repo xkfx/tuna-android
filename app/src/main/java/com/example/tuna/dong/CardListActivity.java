@@ -85,7 +85,7 @@ public class CardListActivity extends AppCompatActivity {
         if (bundle != null) {
             targetId = bundle.getLong("targetId");
             targetName = bundle.getString("targetName");
-            Log.d(TAG, Long.toString(targetId));
+//            Log.d(TAG, Long.toString(targetId));
         }
         mTargetId = targetId;
         mTargetName = targetName;

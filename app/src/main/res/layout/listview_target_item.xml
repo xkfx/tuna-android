@@ -6,15 +6,13 @@
 
     <TextView
         android:id="@+id/listViewTargetItemName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:text="Demo"
-        android:textColor="#000"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center_vertical|start"
+        android:text="TextView"
+        android:textColor="@color/colorBlack"
         android:textSize="24sp"
-        app:fontFamily="casual" />
+        app:fontFamily="serif" />
 </RelativeLayout>
