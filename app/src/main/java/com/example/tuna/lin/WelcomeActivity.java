@@ -16,26 +16,19 @@ public class WelcomeActivity extends AppCompatActivity {
      * 设置延时跳转时间
      */
     private static final int times = 3000;
-    /**
-     * 延时任务
-     */
-    private TimerTask task;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         //将定时器放入Handler中
-        new Handler().postDelayed(new Runnable(){
-            //运行函数
-            @Override
-            public void run() {
-                Intent mainIntent = new Intent(WelcomeActivity.this,MainActivity.class);
-                startActivity(mainIntent);
-                finish();
-                //实现淡入浅出的效果
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            }
-
+        //运行函数
+        new Handler().postDelayed(() -> {
+            Intent mainIntent = new Intent(WelcomeActivity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+            //实现淡入浅出的效果
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         },times);
 
     }
@@ -48,6 +41,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

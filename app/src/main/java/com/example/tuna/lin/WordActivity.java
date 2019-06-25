@@ -1,4 +1,5 @@
 package com.example.tuna.lin;
+
 import com.example.tuna.R;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +13,7 @@ public class WordActivity extends AppCompatActivity {
      * WebView声明
      */
     private WebView webview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

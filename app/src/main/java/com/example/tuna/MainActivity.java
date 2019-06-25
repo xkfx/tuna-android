@@ -1,6 +1,5 @@
 package com.example.tuna;
 
-import com.example.tuna.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                         listView.setAdapter(adapter);
 
                         listView.setOnItemClickListener((adapterView, view, i, l) -> {
-                            Toast.makeText(getApplicationContext(), mTargets.get(i).getId().toString(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(), mTargets.get(i).getId().toString(), Toast.LENGTH_LONG).show();
 
                             // 打开相应单词列表
                             Intent intent = new Intent(MainActivity.this, CardListActivity.class);

@@ -163,21 +163,19 @@ public class CardListActivity extends AppCompatActivity {
                                 hashMaps, R.layout.listview_cards_item, from,to);
                         mListView.setAdapter(adapter);
                         //ListView点击监听
-                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                            public void onItemClick(AdapterView parent, View view, int position, long id){
-                                //获取单词通过Intent传入下一个Activity
-                                Intent intent = new Intent(CardListActivity.this,WordActivity.class);
-                                intent.putExtra("word",mCards.get(position).getFront());
-                                startActivity(intent);
-                                //从左往右的跳转动画
-                                overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-                            }
+                        mListView.setOnItemClickListener((parent, view, position, id) -> {
+                            //获取单词通过Intent传入下一个Activity
+                            Intent intent = new Intent(CardListActivity.this,WordActivity.class);
+                            intent.putExtra("word",mCards.get(position).getFront());
+                            startActivity(intent);
+                            //从左往右的跳转动画
+                            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
                         });
                     });
                 }
 
-                Log.d(TAG, mCards.toString());
-                Log.d(TAG, String.valueOf(mTotalNumberOfPages));
+//                Log.d(TAG, mCards.toString());
+//                Log.d(TAG, String.valueOf(mTotalNumberOfPages));
             }
         });
 
@@ -187,6 +185,7 @@ public class CardListActivity extends AppCompatActivity {
         }
         else mNextBtn.setEnabled(true);
     }
+
     public void ToPrePage(View view){
         int toPrePage = -1;
         ShowCards(toPrePage);
