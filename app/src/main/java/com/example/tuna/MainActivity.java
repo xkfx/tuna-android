@@ -83,10 +83,12 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, CardListActivity.class);
 
                             Bundle bundle = new Bundle();
+                            //将单词本ID传给另一个Activity
                             bundle.putLong("targetId", mTargets.get(i).getId());
+                            //将单词本名传给另一个Activity
                             bundle.putCharSequence("targetName",mTargets.get(i).getName());
                             intent.putExtras(bundle);
-
+                            //跳转
                             startActivity(intent);
                             //从左往右的跳转动画
                             overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
@@ -95,5 +97,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

@@ -63,7 +63,8 @@ public class CardListActivity extends AppCompatActivity {
      */
     private ListView mListView ;
 
-    /* 上一页，下一页按钮
+    /**
+     * 上一页，下一页按钮
      */
     private Button mPreBtn;
     private Button mNextBtn;
@@ -93,6 +94,20 @@ public class CardListActivity extends AppCompatActivity {
         mListTitle = findViewById(R.id.Title);
         mListTitle.setText(mTargetName);
         ShowCards(0);
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
     public void ShowCards(int action){
@@ -180,6 +195,7 @@ public class CardListActivity extends AppCompatActivity {
         int toNextPage = 1;
         ShowCards(toNextPage);
     }
+
 
 
 }
